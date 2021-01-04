@@ -7,8 +7,9 @@ public class TetrisBlock : MonoBehaviour
 
     public bool currentBlock = true;
     public BlockSpawner blockspawner;
+    private Transform pivotPoint;
 
-    private float currentDelay;
+    public float currentDelay;
     private float totalDelay = 1.5f;
 
 
@@ -17,6 +18,7 @@ public class TetrisBlock : MonoBehaviour
     {
         blockspawner = GameObject.Find("BlockSpawner").GetComponent<BlockSpawner>();
         currentDelay = totalDelay;
+        pivotPoint = transform.Find("PivotPoint").transform;
     }
 
     private void Update()
@@ -49,6 +51,13 @@ public class TetrisBlock : MonoBehaviour
                     transform.position += new Vector3(0, -1, 0);
                 }
             }
+
+            // Rotate (Jump for space bar)
+            if (Input.GetButtonDown("Jump"))
+            {
+                transform.RotateAround(pivotPoint.position, Vector3.forward, 90);
+                currentDelay = totalDelay;
+            }
         }
     }
 
@@ -69,6 +78,7 @@ public class TetrisBlock : MonoBehaviour
                 if (!blockspawner.blockPlaced)
                 {
                     transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), Mathf.Round(transform.position.z));
+                    GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
                     blockspawner.blockPlaced = true;
                     currentBlock = false;
                 }
