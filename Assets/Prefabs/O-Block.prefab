@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 71945246296441882}
   - component: {fileID: 71945246296441885}
   - component: {fileID: 3490276152251693836}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TetrisBlock (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 71945246795028379}
   - component: {fileID: 71945246795028378}
   - component: {fileID: 2808627594327854559}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TetrisBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,9 +223,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 71945247262922744}
-  - component: {fileID: 635356515}
   - component: {fileID: -7894756925580460339}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: O-Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,27 +250,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &635356515
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71945247262922742}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 224e7174d25048f45b3564e6b73525d5, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!114 &-7894756925580460339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +263,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentBlock: 1
-  blockspawner: {fileID: 0}
+  currentDelay: 0
+  fallSpeed: 1
+  blockLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  solidLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &71945247316303260
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +282,7 @@ GameObject:
   - component: {fileID: 71945247316303263}
   - component: {fileID: 71945247316303262}
   - component: {fileID: 3600492427130802653}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TetrisBlock (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +389,7 @@ GameObject:
   - component: {fileID: 71945248428794203}
   - component: {fileID: 71945248428794202}
   - component: {fileID: 263082166485703942}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TetrisBlock (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4369789320368409608}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PivotPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
