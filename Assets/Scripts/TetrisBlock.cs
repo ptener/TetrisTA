@@ -27,6 +27,10 @@ public class TetrisBlock : MonoBehaviour
         blockManager = GameObject.Find("BlockManager").GetComponent<BlockManager>();
         pivotPoint = transform.Find("PivotPoint").transform;
 
+        // Speeds up the blocks based on the current score
+        float difficulty = (blockManager.score / 2) + 1;
+        fallSpeed = fallSpeed / difficulty;
+
         // Set delays
         currentDelay = totalDelay;
         fallDelay = fallSpeed;
