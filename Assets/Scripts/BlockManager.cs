@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 // Goal: Keep track of blocks, line clears and points
 public class BlockManager : MonoBehaviour
@@ -9,8 +10,8 @@ public class BlockManager : MonoBehaviour
 
     public bool[,] ifSolidBlocks = new bool[10,20];
     public GameObject[,] solidBlocks = new GameObject[10, 20];
-    public int score;
-
+    public int score = 0;
+    public Text scoreText;
 
     // Adds a block to the solid block data structure
     public void AddSolidBlock(Transform block)
@@ -33,7 +34,10 @@ public class BlockManager : MonoBehaviour
 
             }
         }
-        CheckClear();
+        // Update score
+        score += CheckClear();
+        scoreText.text = "Lines Cleared: " + score;
+        
 
         Destroy(block.gameObject, 1f);
      
@@ -61,22 +65,15 @@ public class BlockManager : MonoBehaviour
             bool rowCleared = true;
             for (int x = 0; x < ifSolidBlocks.GetLength(0); x++)
             {
-
                 if (!ifSolidBlocks[x,y])
                 {
                     rowCleared = false;
                 }
-                else
-                {
-                    //Debug.Log("x: "+x+"  y: "+y);
-                }
             }
-            Debug.Log(rowCleared);
 
             if (rowCleared)
             {
                 Debug.Log("Clearing row: " + y);
-
                 ClearRow(y);
                 rowsCleared += 1;
             }

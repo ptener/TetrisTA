@@ -13,7 +13,7 @@ public class TetrisBlock : MonoBehaviour
     // Timer vars
     public float currentDelay;
     private float totalDelay = 1f;
-    public float fallSpeed = 1;
+    public float fallSpeed = 0.5f;
     private float fallDelay;
 
     // Collision layers
@@ -39,7 +39,7 @@ public class TetrisBlock : MonoBehaviour
         {
 
             // Right and left
-            if (Input.GetButton("Horizontal"))
+            if (Input.GetButtonDown("Horizontal"))
             {
                 if (!BlockRight())
                 {
@@ -59,22 +59,28 @@ public class TetrisBlock : MonoBehaviour
                 }
                 
             }
-            // Rotate (Jump for space bar)
+            
             if (Input.GetButtonDown("Jump"))
             {
-                // Check if can rotate
-                transform.RotateAround(pivotPoint.position, Vector3.forward, 90);
-                currentDelay = totalDelay;
+                // Space for fast fall action
+                while (!BlockBeneath())
+                {
+                    transform.position += new Vector3(0, -1, 0);
+                }
+
             }
 
             if (!BlockBeneath())
             {
                 // Up and down
-                if (Input.GetButton("Vertical"))
+                if (Input.GetButtonDown("Vertical"))
                 {
                     if (Input.GetAxis("Vertical") > 0)
                     {
-                        // Press up
+                        // Check if can rotate
+                        CheckRotation();
+                        transform.RotateAround(pivotPoint.position, Vector3.forward, 90);
+                        currentDelay = totalDelay;
                     }
                     if (Input.GetAxis("Vertical") < 0)
                     {
@@ -88,8 +94,8 @@ public class TetrisBlock : MonoBehaviour
                 if (fallDelay < 0)
                 {
                     fallDelay = fallSpeed;
-
-                    transform.position += new Vector3(0, -1, 0);
+                    if (!BlockBeneath())
+                        transform.position += new Vector3(0, -1, 0);
                 }
             }
             else
@@ -115,6 +121,23 @@ public class TetrisBlock : MonoBehaviour
 
             
         }
+    }
+
+    private void CheckRotation()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.name.Contains("Tetris"))
+            {
+                Collider2D col = Physics2D.OverlapBox(child.position, new Vector2(0.5f,0.5f), 0, solidLayer);
+
+                if (col != null)
+                {
+                    Debug.Log("Overlapping");
+                }
+            }
+        }
+
     }
 
     // Check if there are solid blocks beneath
